@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+
+*{margin: 0;padding: 0;font-family: 'Poppins', sans-serif;}
+
+// variables
+$text-color: #4D27FA;
+$p-color: #000;
+$mainBg: #d5d9db;
+$pBg: #fff;
+
+// ============================================
+
+// mixin
+@mixin dFlex($content){
+    display: flex;
+    justify-content: $content;
+    align-items: center;
+}
+
+@mixin mp($m, $p) {
+    padding: 16px $p;
+    margin: 16px $m;
+}
+
+@mixin font($size, $color, $weight) {
+    font-size: $size;
+    text-transform: capitalize;
+    color: $color;
+    font-weight: $weight;
+}
+
+@mixin input($width) {
+    background-color: $pBg;
+    outline: none;
+    border: none;
+    padding: 16px 16px;
+    font-size: 22px;
+    width: $width;
+    border-radius: 8px;
+}
+
+// ============================================
+
+body{
+    background: $mainBg;
+
+    #app{
+        max-width: 80%;
+        margin: auto;
+    }
+}
+
+
+.header{
+    @include dFlex(space-between);
+    @include mp(0,0);
+
+    h2, h3{
+        @include font(1.4rem, $text-color, 700)
+    }
+    .nav{
+        @include dFlex(right);
+
+        h3{
+            margin-left: 40px;
+            cursor: pointer;
+
+            sup{
+                color: red;
+            }
+        }
+    }
+}
+
+.active{
+    border-bottom: 2px solid $text-color;
+}
+
+
+// nav section start
+
+nav{
+    ul{
+        @include dFlex(space-between);
+        @include mp(10px, 10px);
+
+        li{
+            @include font(1.5rem, $p-color, 600);
+            padding: 8px 12px;
+            list-style: none;
+            cursor: pointer;
+            transition: .2s;
+            border-radius: 5px;
+        }
+
+        li:hover{
+            background: #ddd;
+        }
+
+        .navAc{
+            color: $text-color;
+        }
+    }
+}
+
+
+// headline section
+
+.headline{
+    @include mp(10px, 20px);
+    @include font(1.4rem, $p-color, 700);
+    background: $pBg;
+    border-radius: 15px;
+}
+
+
+// sort section
+
+.sort{
+    @include dFlex(space-between);
+    @include font(1.2rem, $p-color, 500);
+    text-align: center;
+    line-height: 1.6;
+
+    .sort-by-rating{
+        input{
+            @include input(100px);
+            cursor: pointer;
+        }
+    }
+    .sort-by-searching{
+        input{
+            @include input(460px);
+        }
+    }
+    .sort-by-price{
+        .input-section{
+            @include dFlex(center);
+
+            .min-input{
+                input{
+                    border-radius: 8px 0px 0px 8px
+                }
+            }
+            .max-input{
+                input{
+                    border-radius: 0px 8px 8px 0px
+                }
+            }
+        }
+        input{
+            @include input(100px);
+            cursor: pointer;
+        }
+    }
+}
+
+
+// products section
+
+.products{
+    margin-top: 40px;
+}
+
+.product{
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-gap: 30px;
+    padding: 20px;
+    background: $pBg;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 2px 1px 6px 0px #666;
+
+    .product-img{
+        @include dFlex(center);
+        border-radius: 10px;
+        box-shadow: 0px 0px 8px 0px #999;
+
+        img{
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+        }
+    }
+
+    .product-info{
+        h3{
+            @include font(2rem, #000, 700);
+            margin-bottom: 20px;
+        }
+        
+
+        div{
+            @include dFlex(space-between);
+            @include font(1.4rem, #000, 600);
+            @include mp(0px, 10px);
+
+            button{
+                background: $text-color;
+                cursor: pointer;
+                border: none;
+                outline: none;
+                padding: 10px 16px;
+                border-radius: 8px;
+                @include font(1.3rem, $pBg, 400)
+            }
+        }
+    }
+}
+
+
+.warning{
+    text-align: center;
+    font-size: 2rem;
+    line-height: 2.4;
+}
+
+
+.my-cart{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background: #ddd;
+    overflow-y: scroll;
+    padding: 20px;
+
+    .cart-header{
+        @include dFlex(space-between);
+        margin-bottom: 40px;
+
+        h2{
+            @include font(1.8rem, #000, 700);
+        }
+
+        button{
+            border: none;
+            outline: none;
+            background: transparent;
+            cursor: pointer;
+
+
+            img{
+                max-width: 40px;
+            }
+        }
+        
+    }
+
+    .cart{
+        display: grid;
+        grid-template-columns: 80px auto 30px;
+        grid-gap: 10px;
+        padding: 10px;
+        background: $pBg;
+        border-radius: 6px;
+        margin-bottom: 30px;
+        box-shadow: 2px 1px 6px 0px #666;
+    
+        .cart-img{
+            @include dFlex(center);
+            border-radius: 10px;
+            box-shadow: 0px 0px 8px 0px #999;
+    
+            img{
+                max-width: 100%;
+                max-height: 80px;
+                border-radius: 10px;
+            }
+        }
+    
+        .cart-info{
+            h3{
+                @include font(1.5rem, #000, 600);
+                margin-bottom: 0px;
+            }
+            
+    
+            div{
+                @include dFlex(space-between);
+                
+
+                h4{
+                    @include font(1.2rem, #000, 300);
+                    span{
+                        @include font(1.4rem, #000, 700);
+                        margin-left: 10px;
+                    }
+                }
+
+                h4.quanty-sec{
+
+                    @include dFlex(center);
+
+                    div{
+                        span{
+                            @include font(2rem, $text-color, 700);
+                            margin: 0 10px;
+                        }
+                    }
+                    span{
+                        @include dFlex(center);
+                        flex-direction: column;
+                        
+                        button{
+                            background: $text-color;
+                            color: $pBg;
+                            outline: none;
+                            border: none;
+                            cursor: pointer;
+                            padding: 4px 6px;
+                            font-size: 20px;
+                            font-weight: 700;
+                            border-radius: 4px;
+                            margin: 4px 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .cart-btn{
+            button{
+                background: transparent;
+                cursor: pointer;
+                border: none;
+                outline: none;
+
+                img{
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}

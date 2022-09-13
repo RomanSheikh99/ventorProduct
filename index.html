@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- vue js link -->
+    <script src="./js/vue.global.js"></script>
+
+    <!-- custom css link -->
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Fake Data Project</title>
+</head>
+<body>
+    
+    <div id="app">
+
+
+        <header class="header">
+            <h2>Dream Products</h2>
+            <div class="nav">
+                <h3 @click="clicked('products')" :class="isActive === 'products' ? 'active' : '' ">Products</h3>
+                <h3 @click="handleOpenCart(true)" :class="isActive === 'myCart' ? 'active' : '' ">My Cart <sup>{{cart.length}}</sup></h3>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li 
+                v-for="cat in category" 
+                :key="cat.id"
+                @click="handleCategory(cat.cat)"
+                :class="navAc === cat.cat ? 'navAc' : '' "
+                >
+                    {{cat.cat}}
+                </li>
+            </ul>
+        </nav>
+
+        <section class="headline">
+            <h2>{{displayProducts.length}} product find of this category</h2>
+        </section>
+
+
+        <section class="sort">
+            <div class="sort-by-rating">
+                <span>sort by rating:</span><br>
+                <input v-model="rate" type="number">
+            </div>
+            <div class="sort-by-searching">
+                <input 
+                placeholder="Search The Product"
+                v-model="searchText"
+                type="text">
+            </div>
+            <div class="sort-by-price">
+                <span>sort by price</span><br>
+                <div class="input-section">
+                    <div class="min-input">
+                        <input v-model="minPrice" type="number">
+                        <br>
+                        <span>min</span>
+                    </div>
+                    <div class="max-input">
+                        <input v-model="maxPrice" type="number">
+                        <br>
+                        <span>max</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="products">
+            <div v-show="displayProducts < 1" class="warning">
+                <h2>Sorry 😒...</h2>
+                <p>Product Don't Find</p>
+            </div>
+            <div v-for="product in displayProducts" class="product">
+                <div class="product-img">
+                    <img :src="product.image" alt="">
+                </div>
+                <div class="product-info">
+                    <h3>{{product.title}}</h3>
+                    <p>{{product.description}}</p>
+                    <div>
+                        <h4>Price: ${{product.price}}</h4>
+                        <h4>Reveiw: {{product.rating.count}}</h4>
+                        <h4>Rating: {{product.rating.rate}}</h4>
+                        <button @click="handleAddToCart(product.id)">Add Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section v-if="openCart === true" class="my-cart">
+
+            <div class="cart-header">
+                <h2>my cart</h2>
+                <button @click="handleOpenCart(false)">
+                    <img src="./icon/close.png" alt="">
+                </button>
+            </div>
+
+            <div class="cart-body">
+                <div v-for="(product, i) in cart" class="cart">
+                    <div class="cart-img">
+                        <img :src="product.image" alt="">
+                    </div>
+                    <div class="cart-info">
+                        <h3>{{product.title}}</h3>
+                        <div>
+                            <h4>Price: <span>
+                                ${{product.price}}
+                            </span></h4>
+                            <h4 class="quanty-sec">
+                                <div>
+                                    Quantity: 
+                                <span>
+                                    {{product.quanty}}
+                                </span>
+                                </div>
+                                <span>
+                                    <button @click="quantyUP(i)">+</button>
+                                    <button @click="quantyDown(i)">-</button>
+                                </span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="cart-btn">
+                        <button @click="deleteCart(i)">
+                            <img src="./icon/close.png" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
